@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>شیت ۱: کانسپت، تحلیل بستر و روند شکل‌گیری حجمی | مجتمع فرهنگی ووچو</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --paper: #faf8f5;
+      --ink: #11141a;
+      --muted: #525966;
+      --red: #c0121b;
+      --red-soft: rgba(192, 18, 27, 0.08);
+      --stone: #9e8561;
+      --stone-soft: #f4efe7;
+      --border: #e2ddd5;
+      --border-dark: #22262e;
+      --line: #d0c8bd;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      background: #e9ecef;
+      color: var(--ink);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+    .sheet {
+      width: 1400px;
+      min-height: 1980px;
+      background: #ffffff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      padding: 44px 50px 36px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid #d8d8d8;
+    }
+
+    /* کادر معمارانه بیرونی */
+    .sheet::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px solid var(--border);
+      pointer-events: none;
+    }
+
+    /* کتیبه سربرگ دانشگاهی و شناسنامه */
+    .title-block {
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+    .meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .meta-top .tag {
+      background: var(--red);
+      color: #fff;
+      padding: 3px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+    .meta-top .students b {
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .main-title h1 {
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+    .main-title .en-sub {
+      font-size: 15px;
+      letter-spacing: 4px;
+      color: var(--stone);
+      font-weight: 700;
+      direction: ltr;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 16px 24px;
+      background: var(--stone-soft);
+      padding: 12px 20px;
+      border-radius: 4px;
+      border-right: 4px solid var(--stone);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .specs-grid span { color: var(--muted); display: block; font-size: 11px; }
+    .specs-grid strong { color: var(--ink); font-weight: 700; }
+
+    /* شبکه‌بندی محتوا */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* عناوین بخش‌ها */
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+    .sec-head .num {
+      background: var(--border-dark);
+      color: #fff;
+      font-size: 12px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 2px;
+    }
+    .sec-head .en {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-right: auto;
+      font-weight: 600;
+      direction: ltr;
+    }
+
+    /* کارت متنی */
+    .p-text {
+      font-size: 13.5px;
+      line-height: 2.05;
+      color: #2b303a;
+      text-align: justify;
+      margin-bottom: 14px;
+    }
+    .lead-box {
+      background: #fdfbfa;
+      border-right: 3px solid var(--red);
+      padding: 10px 14px;
+      font-size: 13.5px;
+      line-height: 1.95;
+      font-weight: 600;
+      color: #1a1e24;
+      margin-bottom: 14px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* اهداف سه‌گانه */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 14px 0 18px;
+    }
+    .pillar-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--stone);
+      padding: 10px 12px;
+      border-radius: 2px;
+    }
+    .pillar-card.active { border-top-color: var(--red); }
+    .pillar-card h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pillar-card p {
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: var(--muted);
+      text-align: justify;
+    }
+
+    /* تصاویر و ترکیب‌ها */
+    .img-frame {
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 4px;
+      position: relative;
+    }
+    .img-frame img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .caption {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .context-images {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* ماتریس دیاگرام‌های سه‌بعدی */
+    .diagrams-atlas {
+      background: #fcfbf9;
+      border: 1px solid var(--border);
+      padding: 16px;
+      margin-top: 10px;
+    }
+    .diag-matrix {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .diag-item {
+      background: #ffffff;
+      border: 1px solid #e7e2db;
+      padding: 6px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .diag-item img {
+      width: 100%;
+      height: 100px;
+      object-fit: contain;
+      display: block;
+    }
+    .diag-item .lbl {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* گام‌های چهارگانه تحلیل دیاگرامی */
+    .steps-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .step-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.85;
+      color: var(--muted);
+      text-align: justify;
+    }
+    .step-box strong {
+      color: var(--ink);
+      font-size: 12.5px;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 800;
+    }
+
+    /* بخش پایین: تصویر هیرو شبانه */
+    .hero-bottom {
+      border-top: 2px solid var(--border-dark);
+      padding-top: 16px;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .hero-img-box {
+      border: 1px solid var(--border-dark);
+      padding: 4px;
+      background: #111;
+      position: relative;
+    }
+    .hero-img-box img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(17, 20, 26, 0.85);
+      color: #fff;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+      border-right: 3px solid var(--red);
+    }
+    .hero-desc {
+      padding: 10px 0;
+    }
+    .hero-desc h3 {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .hero-desc .quote {
+      font-size: 14px;
+      line-height: 2;
+      color: #2b303a;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .hero-tags span {
+      background: var(--stone-soft);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--stone);
+    }
+
+    /* فوتر شیت */
+    .sheet-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .sheet-footer b { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+  <div class="sheet">
+    
+    <!-- سربرگ کتیبه دانشگاهی و پروژه -->
+    <header class="title-block">
+      <div class="meta-top">
+        <div>
+          <span>درس: <b>مقدمات طراحی معماری ۳</b></span>
+          <span style="margin: 0 12px;">|</span>
+          <span>استاد راهنما: <b>استاد ربانی</b></span>
+        </div>
+        <div class="students">
+          <span>گروه پژوهش و طراحی: <b>متین خواستان</b> • <b>ماندانا کشاورز</b> • <b>روژ طالبی</b></span>
+        </div>
+        <div>
+          <span class="tag">شیت شماره ۰۱ از ۰۲</span>
+        </div>
+      </div>
+
+      <div class="title-row">
+        <div class="main-title">
+          <h1>مجتمع فرهنگی ووچو، گچساران</h1>
+          <div class="en-sub">VOUCHOU CULTURAL COMPLEX · GACHSARAN · SHEET 01: CONCEPT & FORM</div>
+        </div>
+
+        <div class="specs-grid">
+          <div>
+            <span>طراح و معمار:</span>
+            <strong>محمدرضا تاجگردون</strong>
+          </div>
+          <div>
+            <span>کارفرما:</span>
+            <strong>مؤسسه مشک و ملار</strong>
+          </div>
+          <div>
+            <span>تیم طراحی و اجرا:</span>
+            <strong>ن. موسی‌زاده، ب. باجغلی، م. رحیم‌پور | ا. تاج‌گردون</strong>
+          </div>
+          <div>
+            <span>مساحت و زیربنا:</span>
+            <strong>۱۱۵ م² زمین | ۱۴۰ م² زیربنا</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- محتوای اصلی دو ستونه شیت ۱ -->
+    <div class="content-grid">
+
+      <!-- ستون راست: ریشه‌شناسی، بستر شهری و نیازسنجی کالبدی-اجتماعی -->
+      <section class="col-right">
+        <div class="sec-head">
+          <span class="num">۱</span>
+          <span>ریشه‌شناسی نام، بافت محله لبنان و ضرورت‌های راهبردی</span>
+          <span class="en">ET YMOLOGY, CONTEXT & STRATEGIC GOALS</span>
+        </div>
+
+        <div class="lead-box">
+          <strong>ریشه‌شناسی نام ووچو:</strong> واژه «ووچو» در گویش اصیل لری بومیان زاگرس‌نشین به مفهوم «آنجا» دلالت دارد؛ انتخابی هوشمندانه که نشان‌دهنده مقصدی آشنا، قراری ماندگار و پاتوقی عمومی و گرم برای تمامی ساکنان محله است.
+        </div>
+
+        <p class="p-text">
+          این مجموعه در <b>محله لبنان</b>، یکی از محله‌های محروم در بافت فرسوده شهرستان گچساران واقع است؛ محله‌ای با شیب تند کوهپایه‌ای، کوچه‌های باریک پلکانی و خانه‌های خردپایه که پس از جنگ تحمیلی و اسکان مهاجران شکل گرفت و سال‌ها با فقر و محرومیت دست‌وپنجه نرم می‌کرد. تجربه موفق معمار در <b>«مجموعه فرهنگی هنری هونه»</b> (محله سادات) زمینه‌ساز خلق ووچو شد تا با رفع کاستی‌ها، روحی تازه از نشاط و توانمندی را به کالبد محله بازگرداند.
+        </p>
+
+        <!-- تصاویر بستر سایت -->
+        <div class="context-images">
+          <div class="img-frame">
+            <img src="assets/img/page_4_img_1.jpg" alt="گذر محله لبنان و شکست شیب">
+            <div class="caption">
+              <span>گذر اصلی محله لبنان و استقرار بنا در محل شکست شیب</span>
+              <span>سایت کوهپایه‌ای</span>
+            </div>
+          </div>
+          <div class="img-frame">
+            <img src="assets/img/page_5_img_1.jpg" alt="جدار مشبک ووچو">
+            <div class="caption">
+              <span>جداره مشبک آجری با نشان ووچو ۱۴۰۴</span>
+              <span>Brise-soleil</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- اهداف سه‌گانه راهبردی -->
+        <div class="pillars-grid">
+          <div class="pillar-card active">
+            <h4>۱. جبران فقر فرهنگی</h4>
+            <p>ایجاد کتابخانه محله‌ای، فضاهای مطالعه استاندارد و کارگاه‌های آفرینش هنری جهت توانمندسازی نسل جوان محروم از سرانه رفاهی.</p>
+          </div>
+          <div class="pillar-card active">
+            <h4>۲. امنیت شبانه</h4>
+            <p>تبدیل نبش تاریک و رهاشده به کانون نورانی، سرزنده و امن از طریق استقرار کافه، حیاط روشن و پاتوق نشستن شبانه‌روزی.</p>
+          </div>
+          <div class="pillar-card active">
+            <h4>۳. خوداتکایی اقتصادی</h4>
+            <p>طراحی نانوایی بومی سنگک، کتاب‌فروشی و کافه در جداره خیابان برای تأمین مستمر درآمد نگهداری بدون نیاز به بودجه دولتی.</p>
+          </div>
+        </div>
+
+        <p class="p-text" style="font-size: 12.5px;">
+          <b>موقعیت استراتژیک در شکست شیب:</b> جانمایی در نبش گذر اصلی به بنا اجازه می‌دهد تا هم به عنوان یک نشانه شهری خوانا (Landmark) در دید ناظر از پایین‌دست خیابان عمل کند و هم از ترازهای بالا، افق‌های گسترده‌ای از منظر دره‌ها را به روی شهروندان بگشاید.
+        </p>
+      </section>
+
+      <!-- ستون چپ: تحلیل دیاگرامی، روند شکل‌گیری فرم و ماتریس سه‌بعدی -->
+      <section class="col-left">
+        <div class="sec-head">
+          <span class="num">۲</span>
+          <span>تحلیل دیاگرامی، هندسه مدولار و انباشت توده‌ها</span>
+          <span class="en">VOLUMETRIC ANALYSIS & ADDITIVE PROCESS</span>
+        </div>
+
+        <p class="p-text">
+          تحلیل دیاگرامی این بنا نشان‌دهنده یک <b>رویکرد شکلی مدولار، افزایشی (Additive) و تندیس‌گون</b> است که بر پایه هندسه مکعبی، تفکیک عملکردی فضاها و پیوستگی بصری و فیزیکی شکل گرفته است.
+        </p>
+
+        <!-- ماتریس دیاگرام‌های آگزونومتریک استخراج‌شده -->
+        <div class="diagrams-atlas">
+          <div style="font-size: 12px; font-weight: 800; color: var(--stone); margin-bottom: 8px; display: flex; justify-content: space-between;">
+            <span>ماتریس ۱۰‌گانه دیاگرام‌های کالبدی و رفتاری بنا</span>
+            <span>۳D Axonometric Matrix</span>
+          </div>
+
+          <div class="diag-matrix">
+            <div class="diag-item">
+              <img src="assets/diag/diag_01.png" alt="روزنه‌های مربعی">
+              <span class="lbl">روزنه‌ها (Punched)</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_02.png" alt="شبکه شطرنجی">
+              <span class="lbl">مدول پایه شطرنجی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_03.png" alt="کنسول گوشه">
+              <span class="lbl">کنسول‌های حجمی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_04.png" alt="دانه‌بندی پلکانی">
+              <span class="lbl">دانه‌بندی متخلخل</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_05.png" alt="بلوک میانی">
+              <span class="lbl">نقاط ثقل بصری</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_06.png" alt="صفحات هدایت‌کننده">
+              <span class="lbl">صفحات کالبدی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_07.png" alt="کنسول تراز بالا">
+              <span class="lbl">ترازهای ارتفاعی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_08.png" alt="سیرکولاسیون پیوسته">
+              <span class="lbl">پرومناد عمودی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_09.png" alt="خوشه‌بندی توده‌ها">
+              <span class="lbl">خوشه‌بندی فضایی</span>
+            </div>
+            <div class="diag-item">
+              <img src="assets/diag/diag_10.png" alt="مسیرهای حرکتی">
+              <span class="lbl">پیوستگی شبکه دسترسی</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- تشریح گام‌های چهارگانه طراحی -->
+        <div class="steps-list">
+          <div class="step-box">
+            <strong>۱. ساختار مدولار و گسترش میدانی</strong>
+            تولد فرم از تکرار و ترکیب یک سلول مکعبی پایه در یک شبکه سه‌بعدی؛ آرایش به فرم دانه‌بندی‌های خرد و متخلخل به‌جای یک بلوک یکپارچه، جهت انطباق با شیب کوهپایه.
+          </div>
+          <div class="step-box">
+            <strong>۲. سلسله‌مراتب احجام و تعادل نامتقارن</strong>
+            مکعب‌های منفرد در گوشه‌ها و طبقات میانی نقش کلیدی در کنسول‌ها (Cantilevers) ایفا کرده و با خوشه‌بندی توده‌ها تعادلی نامتقارن (Asymmetrical Balance) می‌آفرینند.
+          </div>
+          <div class="step-box">
+            <strong>۳. صفحات کالبدی و ریتم روزنه‌ها</strong>
+            دیوارهای کشیده و مجزا مرزهای کالبدی و محرمیت را تعریف می‌کنند؛ روزنه‌های مربعی متناوب (Punched Windows) تضاد صلب و شفاف را آشکار می‌سازند.
+          </div>
+          <div class="step-box">
+            <strong>۴. گردش فضایی پیوسته و بام‌های فعال</strong>
+            پرومناد معماری (Promenade Architecturale) بخش‌های مختلف را با پله‌ها و رمپ‌ها به هم می‌دوزد؛ لغزش مکعب‌ها بام‌های فعال (Roof Terraces) و فضاهای نیمه‌باز را خلق می‌کند.
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- بخش پایین: تصویر شاخص شبانه و نشانه شهری -->
+    <section class="hero-bottom">
+      <div class="hero-img-box">
+        <img src="assets/img/page_2_img_1.jpg" alt="نمای پرسپکتیو شبانه ووچو">
+        <div class="hero-badge">لندمارک شبانه محله لبنان · ووچو گچساران</div>
+      </div>
+      <div class="hero-desc">
+        <h3>هویت بصری و تکیه آینده پرنور بر گذشته</h3>
+        <p class="quote">
+          «قرارگیری حجم سفید روی جداره‌های سنگی، نمادی شفاف از تکیه آینده پرنور بر هویت گذشته است. ترکیب سنگ مالون تیشه‌خورده بومی با احجام مینیمال مدرن و نورپردازی هدفمند شبانه، این بنا را از ساختمانی خاموش به نگین سرزنده بافت تبدیل نموده است.»
+        </p>
+        <div class="hero-tags">
+          <span>سنگ مالون تیشه‌خورده</span>
+          <span>احجام کنسولی سفید</span>
+          <span>نشانه شهری (Landmark)</span>
+          <span>پایداری کالبدی و اجتماعی</span>
+          <span>تخلخل فضایی</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- پاورقی شیت -->
+    <footer class="sheet-footer">
+      <div>پروژه مجتمع فرهنگی ووچو · دانشگاه / دانشکده معماری · نیمسال تحصیلی ۱۴۰۴-۱۴۰۵</div>
+      <div>مقدمات طراحی معماری ۳ · مدرس: <b>استاد ربانی</b> · تنظیم شیت: <b>متین خواستان، ماندانا کشاورز، روژ طالبی</b></div>
+      <div>SHEET 01 OF 02 · CONCEPT & 3D ANALYSIS</div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شیت‌های معماری مجتمع فرهنگی ووچو | مقدمات طراحی ۳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --card-bg: #141923;
+      --gold: #e7c48a;
+      --red: #c0121b;
+      --text: #f0f2f5;
+      --muted: #8b949e;
+      --border: #242c3d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* هدر ناوبری */
+    header {
+      background: rgba(20, 25, 35, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .brand span {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #f7e1b5, #d9ad66);
+      color: #111;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231,196,138,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* محتوای اصلی */
+    main {
+      flex: 1;
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 34px 28px;
+      width: 100%;
+    }
+
+    /* نوار مشخصات دانشگاهی */
+    .info-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .info-bar .item span {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+    }
+    .info-bar .item strong {
+      font-size: 14px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* تب‌های سوییچ شیت‌ها */
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      box-shadow: 0 4px 16px rgba(192,18,27,0.35);
+    }
+
+    /* کارت‌های نمایش شیت */
+    .sheet-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sheet-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .sheet-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .sheet-dl-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sheet-preview {
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #2e3646;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .sheet-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    /* فوتر */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      background: rgba(14, 18, 26, 0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>شیت‌بندی معماری مجتمع ووچو</h1>
+      <span>GACHSARAN ARCHITECTURAL SHEETS</span>
+    </div>
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-outline">← بازگشت به ارائه‌نامه سه‌بعدی</a>
+      <a href="files/sheet_1_concept_analysis.pdf" download class="btn btn-primary">دانلود PDF شیت ۱</a>
+      <a href="files/sheet_2_plans_sections.pdf" download class="btn btn-primary">دانلود PDF شیت ۲</a>
+    </div>
+  </header>
+
+  <main>
+    
+    <!-- نوار شناسنامه تحویل پروژه -->
+    <div class="info-bar">
+      <div class="item">
+        <span>درس:</span>
+        <strong>مقدمات طراحی معماری ۳</strong>
+      </div>
+      <div class="item">
+        <span>استاد راهنما:</span>
+        <strong>جناب استاد ربانی</strong>
+      </div>
+      <div class="item">
+        <span>گروه دانشجویی:</span>
+        <strong>متین خواستان · ماندانا کشاورز · روژ طالبی</strong>
+      </div>
+      <div class="item">
+        <span>پروژه:</span>
+        <strong>مجتمع فرهنگی ووچو، گچساران</strong>
+      </div>
+      <div class="item">
+        <span>فرمت خروجی:</span>
+        <strong>شیت معماری ابعاد بزرگ (کیفیت چاپی ۳۰۰ DPI و PDF وکتور)</strong>
+      </div>
+    </div>
+
+    <!-- بخش شیت ۱ -->
+    <section class="sheet-card" id="sheet1">
+      <div class="sheet-header">
+        <div>
+          <h2>شیت شماره ۰۱: کانسپت، تحلیل بستر، روند شکل‌گیری فرم و دیاگرام‌های سه‌بعدی</h2>
+          <p>شامل ریشه‌شناسی نام ووچو، تحلیل کالبدی-اجتماعی محله لبنان، اهداف سه‌گانه، ماتریس ۱۰‌گانه دیاگرام‌های آگزونومتریک و پرسپکتیو شبانه لندمارک</p>
+        </div>
+        <div class="sheet-dl-actions">
+          <a href="files/sheet_1_concept_analysis.jpg" target="_blank" class="btn btn-outline">مشاهده با کیفیت اصلی (JPG)</a>
+          <a href="files/sheet_1_concept_analysis.pdf" download class="btn btn-primary">دانلود فایل PDF چاپی</a>
+          <a href="sheet1.html" target="_blank" class="btn btn-outline">نسخه وب تعاملی</a>
+        </div>
+      </div>
+
+      <div class="sheet-preview">
+        <a href="files/sheet_1_concept_analysis.jpg" target="_blank" title="کلیک برای باز کردن با کیفیت کامل">
+          <img src="files/sheet_1_concept_analysis.jpg" alt="پیش‌نمایش شیت ۱ مجتمع ووچو">
+        </a>
+      </div>
+    </section>
+
+    <!-- بخش شیت ۲ -->
+    <section class="sheet-card" id="sheet2">
+      <div class="sheet-header">
+        <div>
+          <h2>شیت شماره ۰۲: سازماندهی فضایی، نقشه‌های کالبدی، مقاطع، مصالح و تجارب زیسته</h2>
+          <p>شامل لایه‌بندی مدیریتی مستقل، مقطع معماری ۱:۱۰۰، پلان همکف با جدول ۹ ریزفضا، پلان طبقه دوم، پاسخ‌های اقلیمی و سه‌گانه تجارب فضایی حیاط، پرومناد و کتابخانه</p>
+        </div>
+        <div class="sheet-dl-actions">
+          <a href="files/sheet_2_plans_sections.jpg" target="_blank" class="btn btn-outline">مشاهده با کیفیت اصلی (JPG)</a>
+          <a href="files/sheet_2_plans_sections.pdf" download class="btn btn-primary">دانلود فایل PDF چاپی</a>
+          <a href="sheet2.html" target="_blank" class="btn btn-outline">نسخه وب تعاملی</a>
+        </div>
+      </div>
+
+      <div class="sheet-preview">
+        <a href="files/sheet_2_plans_sections.jpg" target="_blank" title="کلیک برای باز کردن با کیفیت کامل">
+          <img src="files/sheet_2_plans_sections.jpg" alt="پیش‌نمایش شیت ۲ مجتمع ووچو">
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    پروژه مجتمع فرهنگی ووچو · درس مقدمات طراحی معماری ۳ · استاد ربانی · تهیه و تنظیم: متین خواستان، ماندانا کشاورز، روژ طالبی
+  </footer>
+
+</body>
+</html>
